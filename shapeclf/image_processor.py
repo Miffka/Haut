@@ -3,14 +3,14 @@ import logging
 import numpy as np
 from skimage import measure
 
-from shapeclf.shape import FigureProcessor, Shape, ShapeClassifier
+from shapeclf.figure import FigureClassifier, FigureProcessor, Shape
 
 
 class ImageProcessor:
     def __init__(self, *args, area_threshold: int = 10, target_size: int = 101, **kwargs) -> None:
         self.area_threshold = area_threshold
         self.target_size = target_size
-        self.shape_classifier = ShapeClassifier(*args, **kwargs)
+        self.shape_classifier = FigureClassifier(*args, **kwargs)
 
     @staticmethod
     def _divide_to_figures(image: np.ndarray) -> np.ndarray:

@@ -1,5 +1,6 @@
 import argparse
 import logging
+import os
 
 import cv2
 
@@ -19,7 +20,7 @@ def main():
     parser = create_parser()
     args = parser.parse_args()
 
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
 
     image = cv2.imread(args.src_fpath)[:, :, ::-1]
     image = (image > 100)[:, :, 0]
@@ -29,6 +30,7 @@ def main():
     output_image = processor(image)
     logging.info("Image succesfully processed")
 
+    os.makedirs(os.path.dirname(args.dst_fpath), exist_ok=True)
     cv2.imwrite(args.dst_fpath, output_image)
     logging.info(f"Result saved to file {args.dst_fpath}")
 
